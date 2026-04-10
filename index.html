@@ -885,28 +885,27 @@
       /* ── Carousel mixin for both phone row types ── */
       .home-phones,
       .journal-phones {
-        width: 100%;
-        margin-left: 0;
-        padding: 20px 0 32px;
-        gap: 0;
+        /* stretch edge-to-edge, bleed past container */
+        width: 100vw;
+        margin-left: calc(-20px);   /* undo container padding */
+        padding: 20px 20px 32px;
+        gap: 16px;
         justify-content: flex-start;
         align-items: flex-end;
         overflow-x: auto;
         overflow-y: visible;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: 0;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
       .home-phones::-webkit-scrollbar,
       .journal-phones::-webkit-scrollbar { display: none; }
 
-      /* Each slide uses the full content width so phones keep the same margins as the text above. */
+      /* Every phone wrapper snaps to center */
       .home-phones   .iphone-wrap,
       .journal-phones .iphone-wrap {
-        width: 100%;
-        flex: 0 0 100%;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
+        flex-shrink: 0;
       }
 
       /* Remove all rotations — phones sit upright in carousel */
@@ -921,14 +920,9 @@
         transform: none !important;
       }
 
-      /* Keep the phones readable, but let the wrapper provide the margins. */
-      .home-phones   .iphone,
-      .journal-phones .iphone {
-        height: auto;
-        aspect-ratio: 390 / 844;
-      }
-      .home-phones   .iphone { width: min(230px, calc(100vw - 112px)); }
-      .journal-phones .iphone { width: min(220px, calc(100vw - 122px)); }
+      /* Phone size in carousel — large enough to read clearly */
+      .home-phones   .iphone { width: 230px; height: 497px; }
+      .journal-phones .iphone { width: 220px; height: 475px; }
 
       /* Show phone-glow as static behind carousel */
       .home-phones .phone-glow,
