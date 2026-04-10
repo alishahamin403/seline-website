@@ -498,17 +498,10 @@
     [data-theme="light"] .iphone-screen-wrap .screen-dark  { opacity: 0; }
     [data-theme="light"] .iphone-screen-wrap .screen-light { opacity: 1; }
 
-    /* Dynamic island — just the black pill, no outer notch block */
+    /* Screenshots already include their own status area, so don't add a second island overlay. */
     .iphone-notch {
-      position: absolute;
-      top: 14px; left: 50%;
-      transform: translateX(-50%);
-      width: 90px; height: 26px;
-      background: #000;
-      border-radius: 100px;
-      z-index: 10;
+      display: none;
     }
-    [data-theme="light"] .iphone-notch { background: #000; }
 
     /* Floating glow behind phone */
     .phone-glow {
