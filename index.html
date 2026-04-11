@@ -431,78 +431,74 @@
 
     .iphone {
       position: relative;
-      width: 270px;
-      /* iPhone aspect ratio ~19.5:9 → height = width * 844/390 */
-      height: 584px;
+      /* iPhone 15 screenshot ratio: 1179×2556 px → 2.168
+         At 260px wide: 260 × 2.168 = 563px tall               */
+      width: 260px;
+      height: 563px;
       flex-shrink: 0;
     }
 
-    /* Outer frame */
+    /* Outer frame — thin bezel so screenshot fills almost the whole face */
     .iphone-frame {
       position: absolute;
       inset: 0;
       background: var(--phone-frame);
-      border-radius: 54px;
+      border-radius: 50px;
       border: 1px solid var(--phone-border);
       box-shadow: var(--phone-shadow);
       transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
-      /* inner bezel */
-      padding: 10px;
+      /* 6px bezel — just enough for the frame ring to show */
+      padding: 6px;
     }
-    /* Subtle edge highlight */
+    /* Edge shine */
     .iphone-frame::before {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 54px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 50%);
       pointer-events: none;
+      z-index: 2;
     }
     [data-theme="light"] .iphone-frame::before {
-      background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, transparent 40%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, transparent 40%);
     }
 
-    /* Side buttons */
+    /* Side button */
     .iphone-frame::after {
       content: '';
       position: absolute;
       right: -3px;
-      top: 120px;
+      top: 108px;
       width: 3px;
-      height: 70px;
+      height: 62px;
       background: var(--phone-frame);
       border-radius: 0 3px 3px 0;
       border: 1px solid var(--phone-border);
       border-left: none;
-      box-shadow: 0 50px 0 var(--phone-frame);
+      box-shadow: 0 46px 0 var(--phone-frame);
     }
 
+    /* Screen: inner radius = frame radius − padding (50 − 6 = 44) */
     .iphone-screen-wrap {
       width: 100%;
       height: 100%;
-      border-radius: 46px;
+      border-radius: 44px;
       overflow: hidden;
       position: relative;
       background: #000;
     }
     [data-theme="light"] .iphone-screen-wrap { background: #fff; }
 
-    .iphone-screen-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-      transition: opacity 0.4s ease;
-    }
-    /* The two images sit on top of each other; JS toggles opacity */
+    /* Screenshots already contain the Dynamic Island — show them in full, no crop */
     .iphone-screen-wrap .screen-dark,
     .iphone-screen-wrap .screen-light {
       position: absolute;
       inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: top center;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;   /* exact fit — screenshots match frame aspect ratio */
+      display: block;
       transition: opacity 0.45s ease;
     }
     .iphone-screen-wrap .screen-dark  { opacity: 1; }
@@ -510,10 +506,8 @@
     [data-theme="light"] .iphone-screen-wrap .screen-dark  { opacity: 0; }
     [data-theme="light"] .iphone-screen-wrap .screen-light { opacity: 1; }
 
-    /* Screenshots already include their own status area, so don't add a second island overlay. */
-    .iphone-notch {
-      display: none;
-    }
+    /* Notch hidden — screenshots already show the Dynamic Island */
+    .iphone-notch { display: none; }
 
     /* Floating glow behind phone */
     .phone-glow {
@@ -865,8 +859,8 @@
       /* Multi-phone fans → shrink phones, tighten gap */
       .home-phones   { gap: 12px; }
       .journal-phones { gap: 10px; }
-      .home-phones .iphone   { width: 190px; height: 411px; }
-      .journal-phones .iphone { width: 160px; height: 346px; }
+      .home-phones .iphone   { width: 185px; height: 401px; }
+      .journal-phones .iphone { width: 155px; height: 336px; }
     }
 
     /* ══════════════════════════════════════
